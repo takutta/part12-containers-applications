@@ -1,0 +1,64 @@
+
+
+jachy@Murmeli:~/GitHub/part12-containers-applications$ docker exec -it todo-backend-mongo-1 bash
+root@ad8c61cf074c:/# mongosh -u root -p example
+Current Mongosh Log ID: 65a0fabec35cbd0dc2a7fc88
+Connecting to:          mongodb://<credentials>@127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.1.1
+Using MongoDB:          7.0.5
+Using Mongosh:          2.1.1
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2024-01-12T07:32:26.803+00:00: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+   2024-01-12T07:32:27.521+00:00: /sys/kernel/mm/transparent_hugepage/enabled is 'always'. We suggest setting it to 'never'
+   2024-01-12T07:32:27.521+00:00: vm.max_map_count is too low
+------
+
+test> show dbs
+admin         100.00 KiB
+config        108.00 KiB
+local          72.00 KiB
+the_database   56.00 KiB
+test> use the_database
+switched to db the_database
+the_database> show collections
+todos
+the_database> db.todos.find({})
+[
+  {
+    _id: ObjectId('65a0eb09a4331434cc2f213c'),
+    text: 'Write code',
+    done: true
+  },
+  {
+    _id: ObjectId('65a0eb09a4331434cc2f213d'),
+    done: true,
+    text: 'testi'
+  }
+]
+the_database> db.todos.insertOne({"text":"Increase the number of tools ni my toolbelt","done":false})
+{
+  acknowledged: true,
+  insertedId: ObjectId('65a0fba8c35cbd0dc2a7fc89')
+}
+the_database> db.todos.find({})
+[
+  {
+    _id: ObjectId('65a0eb09a4331434cc2f213c'),
+    text: 'Write code',
+    done: true
+  },
+  {
+    _id: ObjectId('65a0eb09a4331434cc2f213d'),
+    done: true,
+    text: 'testi'
+  },
+  {
+    _id: ObjectId('65a0fba8c35cbd0dc2a7fc89'),
+    text: 'Increase the number of tools ni my toolbelt',
+    done: false
+  }
+]
+the_database>

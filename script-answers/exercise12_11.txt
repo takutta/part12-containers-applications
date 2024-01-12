@@ -1,0 +1,14 @@
+jachy@Murmeli:~/GitHub/part12-containers-applications$ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED             STATUS         PORTS                     NAMES
+a0ab771c3678   redis     "docker-entrypoint.s…"   56 minutes ago      Up 6 minutes   0.0.0.0:6379->6379/tcp    todo-backend-redis-1
+aaa4cc666993   mongo     "docker-entrypoint.s…"   About an hour ago   Up 6 minutes   0.0.0.0:3456->27017/tcp   todo-backend-mongo-1
+6d93e408705a   nginx     "/docker-entrypoint.…"   2 hours ago         Up 2 hours     0.0.0.0:8080->80/tcp      cranky_lumiere
+jachy@Murmeli:~/GitHub/part12-containers-applications$ docker exec -it todo-backend-redis-1 bash
+root@a0ab771c3678:/data# redis-cli keys added_todos
+1) "added_todos"
+root@a0ab771c3678:/data# redis-cli set added_todos 9001
+OK
+root@a0ab771c3678:/data# redis-cli del added_todos
+(integer) 1
+root@a0ab771c3678:/data# redis-cli keys added_todos
+(empty array)
