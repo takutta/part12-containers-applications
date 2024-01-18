@@ -1,0 +1,23 @@
+services:
+  app:
+    image: bingo-front
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend/:/usr/src/app
+    ports:
+      - 3000:3000
+    container_name: bingo-front
+  server:
+    image: bingo-back
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend/:/usr/src/app
+    ports:
+      - 3001:3001
+    container_name: bingo-back
+    depends_on:
+      - app
